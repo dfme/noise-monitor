@@ -32,7 +32,7 @@ import ch.jason.android.noiseMonitor.R;
  */
 public class SmsAlertHandler extends AbstractAlertHandler {
 
-    private final String INTENT_ACTION_SMS_SENT = "SMS_SENT";
+    private static final String INTENT_ACTION_SMS_SENT = "SMS_SENT";
 
     private final String LOG_TAG = getClass().getSimpleName();
 
@@ -75,7 +75,7 @@ public class SmsAlertHandler extends AbstractAlertHandler {
                     + context.getString(R.string.app_name) + "'";
 
         // prepare our broadcast receiver to listen to the message sent state
-        receiver = new SmsBroadcastReveiver();
+        receiver = new SmsBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(INTENT_ACTION_SMS_SENT);
         context.registerReceiver(receiver, intentFilter);
 
@@ -91,13 +91,13 @@ public class SmsAlertHandler extends AbstractAlertHandler {
     }
 
     /**
-     * The Class SmsBroadcastReveiver.
+     * The Class SmsBroadcastReceiver.
      * <p>
      * This receiver is registered to receive any incoming intents which
-     * determine if our sms was sent succesfully
+     * determine if our sms was sent successfully.
      * </p>
      */
-    private class SmsBroadcastReveiver extends BroadcastReceiver {
+    private class SmsBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {

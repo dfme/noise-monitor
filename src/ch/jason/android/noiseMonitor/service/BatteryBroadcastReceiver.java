@@ -23,11 +23,9 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     private String telNr;
 
-    private final int LOW_POWER = 5;
+    private static final int LOW_POWER = 5;
 
     private int lastReportedPowerLevel = -1;
-
-    private int lastReportedBatteryState = BatteryManager.BATTERY_HEALTH_UNKNOWN;
 
     private boolean messageSent = false;
 
@@ -56,7 +54,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context ctx, Intent intent) {
 
-        lastReportedBatteryState = intent.getIntExtra("status",
+        int lastReportedBatteryState = intent.getIntExtra("status",
                 BatteryManager.BATTERY_STATUS_UNKNOWN);
         lastReportedPowerLevel = intent.getIntExtra("level", 0);
         Log.d(LOG_TAG, "Battery state changed... Battery Level @ "
