@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+    <title>Noise Monitor</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.1.min.js"></script>
+
+    <!-- PhoneGap stuff -->
+    <script type="text/javascript" charset="utf-8"
+            src="js/phonegap/phonegap-1.1.0.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="js/phonegap/NoiseMonitorPlugin.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+
+    <!-- JQuery stuff online -->
+    <!--
+    <link rel="stylesheet"
+        href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+    <script
+        src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+    -->
+
+    <link rel="stylesheet" href="js/jquery/jquery.mobile-1.0rc2.min.css"/>
+    <script type="text/javascript" src="js/jquery/jquery.mobile-1.0rc2.min.js"></script>
+
+</head>
+<body>
+
+<div data-role="page" id="home">
+    <div data-role="header">
+        <h1>Noise Monitor</h1>
+    </div>
+    <div data-role="content">
+        <a href="#" rel="external" data-role="button" id="monitorControl"
+           onClick="toggleMonitor();" data-icon="check">Initialising...</a>
+
+        <!-- implement this later for v. 1.1
+        <a href="#" rel="external" data-role="button" id="monitorTestControl"
+            onClick="testMonitor();" data-icon="gear">Test Noise Monitor</a>
+             -->
+
+        <a href="#" data-role="button" id="callButton"
+           onClick="javascript:window.location='tel://' + Settings.getTelNr()"
+           data-icon="grid">Call Number</a>
+
+        <!-- Debug Buttons -->
+        <!--
+        <a href="#" rel="external" data-role="button"
+            onClick="getMicReading();">Mic Reading</a> <a href="#"
+            rel="external" data-role="button" onClick="isMonitorRunning();">Monitor
+            Active?</a>
+        -->
+
+        <!-- Page Transition Stuff -->
+        <ul data-role="listview" data-inset="true">
+
+            <!-- data-transition="slide" -->
+            <li><a href="#settings" onclick="loadSettings();">Settings</a>
+            </li>
+            <!-- data-transition="fade" -->
+            <li><a href="#about">About</a> <!-- <li><a href="#about" data-rel="dialog">About</a> -->
+        </ul>
+    </div>
+
+    <div data-role="footer" data-theme="e">
+        <p id="footer_text_home" align="center">&copy; 2011 Noise Monitor</p>
+    </div>
+</div>
+
+<div data-role="page" id="settings">
+    <div data-role="header">
+        <h1>Settings</h1>
+    </div>
+    <div data-role="content" align="center">
+        <div data-role="fieldcontain">
+            <label for="name">Telephone number to call/SMS:</label> <input
+                type="number" name="telnr" id="telnr" value=""/>
+        </div>
+        <div data-role="fieldcontain">
+            <label for="slider">Sound Threshold:</label> <input type="range"
+                                                                name="slider" id="threshold" value="5" min="1"
+                                                                max="10"/>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <legend>Choose Alert Mode:</legend>
+                <input type="radio" name="radio-choice-1" id="alert-mode-tel"
+                       value="0"/> <label for="alert-mode-tel">Telephone</label> <input
+                    type="radio" name="radio-choice-1" id="alert-mode-sms" value="1"/>
+                <label for="alert-mode-sms">SMS</label>
+            </fieldset>
+        </div>
+
+        <div data-role="fieldcontain">
+            <label for="slider">Babyphone Mode:</label> <select name="slider"
+                                                                id="babyphone_mode" data-role="slider">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+        </select>
+        </div>
+
+        <div align="center">
+            <a href="#home" data-role="button" data-icon="check"
+               onclick="Settings.saveAll()" data-theme="b" data-inline="true">Save</a>
+        </div>
+        <!--
+        <div data-role="footer" class="ui-bar" align="center">
+
+            <a href="#home" data-role="button" data-transition="fade" data-icon="delete">Cancel</a>
+            <a href="#home" data-role="button" data-theme="b" data-transition="fade" data-icon="check" onclick="Settings.saveAll()">Save</a>
+
+            <a href="#home" data-role="button" data-theme="b" data-icon="check" onclick="Settings.saveAll()">Save</a>
+        </div>
+        -->
+    </div>
+</div>
+
+<div data-role="page" id="about">
+    <div data-role="header">
+        <h1>About</h1>
+    </div>
+    <div data-role="content">
+        <p>Noise Monitor is an application which allows the user to
+            monitor sound with the telephone's built in microphone. If the
+            application detects noise exceeding a certain threshold a predefined
+            telephone number is called to alert the user. If during a monitor
+            session the battery of the phone is low a SMS will be sent to the
+            specified number to alert the user. Make sure to enter a valid
+            number before using. The author takes no liabity if the application
+            does not function as intended.</p>
+        <h4>Possible Settings</h4>
+        <ul>
+            <li><em>Phone Number:</em> Number to call/SMS</li>
+            <li><em>Sound Threshold:</em> If the recorded sound exceeds
+                this set level an alert will be executed.
+            </li>
+            <li><em>Alert Mode:</em> Here you can choose how you would like
+                to be alerted when the sound threshold has been exceeded. <code>Telephone</code>
+                mode will place a call everytime the threshold is exceeded. Even if
+                the phone call was successfull the monitor will continue to monitor
+                and will alert you everytime the threshold was exceeded. <code>SMS</code>
+                will only send <u>one</u> notification during a monitor session.
+            </li>
+            <li><em>Babyphone Mode:</em> If this option is set to <code>on</code>
+                the application will set the phone's ringer mode to <code>SILENT</code>
+                while it is monitoring. This way a sleeping baby will not be waken
+                by an incoming telephone call or message :-)
+            </li>
+        </ul>
+    </div>
+    <div data-role="footer" data-theme="e">
+        <p id="footer_text_about" align="center">&copy; 2011 Noise
+            Monitor</p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Noise Monitor</string>
+    <string name="service_started">%s active...</string>
+    <string name="service_title">%s Service</string>
+    <string name="test_monitor_title">%s Test</string>
+    <string name="service_message">Monitoring mic...</string>
+    <string name="service_message_stopped">Monitor stopped!</string>
+    <string name="service_message_info">%d Alert(s) sent!</string>
+    <string name="invalid_arguments">Arguments not valid. Please check your settings and
+        make sure you have provided a valid telephone number.
+    </string>
+    <string name="no_phone">This device has no phone capabilities at the
+        moment... Please enable the phone.
+    </string>
+    <string name="battery_low_sms_text">Your device\'s battery is low! It is going to
+        shutdown! Last reported battery level: %d \%
+    </string>
+
+    <string name="test_monitor_data_type">application/nm</string>
+</resources>
